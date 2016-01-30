@@ -29,6 +29,7 @@ public class OpenFileListener implements ActionListener
 	    File file = jFileChooser.getSelectedFile();
 	    mainPanel.getTextField().setText(file.getName());
 	    main.readFromFile(file);
+	    mainPanel.getBtnStart().setEnabled(true);
 	}
     }
 

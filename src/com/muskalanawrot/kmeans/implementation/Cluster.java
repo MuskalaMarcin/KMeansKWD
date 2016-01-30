@@ -1,6 +1,6 @@
 package com.muskalanawrot.kmeans.implementation;
 
-public class Claster
+public class Cluster
 {
 
 }

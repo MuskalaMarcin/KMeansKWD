@@ -5,22 +5,18 @@ import java.awt.event.ActionListener;
 
 import com.muskalanawrot.kmeans.Main;
 
-public class StartKmeansListener implements ActionListener
+public class StartBtnListener implements ActionListener
 {
-    private MainPanel mainPanel;
     private Main main;
 
-    public StartKmeansListener(Main main, MainPanel mainPanel)
+    public StartBtnListener(Main main)
     {
-	this.mainPanel = mainPanel;
 	this.main = main;
     }
 
     @Override
     public void actionPerformed(ActionEvent e)
     {
-	main.generatePoints();
-
+	main.calculateKmeans();
     }
-
 }

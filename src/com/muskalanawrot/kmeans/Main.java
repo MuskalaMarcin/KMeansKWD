@@ -10,11 +10,9 @@ import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.swing.JFrame;
@@ -32,7 +30,6 @@ public class Main implements Runnable
     {
 	this.mainPanel = new MainPanel(this);
 	this.mainFrame = new JFrame();
-	this.points = new LinkedList<Point>();
     }
 
     public static void main(String args[])
@@ -42,6 +39,7 @@ public class Main implements Runnable
 
     public void readFromFile(File file)
     {
+	this.points = new LinkedList<Point>();
 	long startTime = System.currentTimeMillis();
 	mainPanel.getTextArea().append("Wczytuje dane z pliku: " + file.getName() + "\n");
 	try
@@ -64,10 +62,11 @@ public class Main implements Runnable
 		write("Plik " + file.getName() + " jest pusty.");
 	    }
 	    bfrReader.close();
-	    Date date = new Date(System.currentTimeMillis() - startTime);
+
 	    DateFormat formatter = new SimpleDateFormat("mm:ss:SSS");
-	    String dateFormatted = formatter.format(date);
-	    write(dateFormatted);
+	    String[] dateFormatted = formatter.format(new Date(System.currentTimeMillis() - startTime)).split(":");
+	    write("Wczytano: " + points.size() + " obserwacji z pliku w czasie: " + dateFormatted[0] + " min "
+		    + dateFormatted[1] + " s " + dateFormatted[2] + " ms.");
 	}
 	catch (FileNotFoundException e)
 	{
@@ -81,14 +80,41 @@ public class Main implements Runnable
 	}
     }
 
-    public void generatePoints()
+    public void generatePoints(int pointsNumber)
     {
+	this.points = new LinkedList<Point>();
 	long startTime = System.currentTimeMillis();
+	mainPanel.getProgressBar().setMaximum(pointsNumber);
+	for (int i = 0; i < pointsNumber; i++)
+	{
+	    points.add(Point.generateRandomPoint(0, 100));
+	    mainPanel.getProgressBar().setValue(i + 1);
+	    mainPanel.validate();
+	    mainPanel.repaint();
+	}
+	DateFormat formatter = new SimpleDateFormat("mm:ss:SSS");
+	String[] dateFormatted = formatter.format(new Date(System.currentTimeMillis() - startTime)).split(":");
+	write("Wygenerowano: " + pointsNumber + " obserwacji w czasie: " + dateFormatted[0] + " min "
+		+ dateFormatted[1] + " s " + dateFormatted[2] + " ms.");
     }
 
     public void calculateKmeans()
     {
+	if (mainPanel.getRdbtnWygenerujAutomatycznie().isSelected())
+	{
+	    try
+	    {
+		generatePoints(Integer.parseInt(mainPanel.getTextField_1().getText()));
+	    }
+	    catch (NumberFormatException e)
+	    {
+		write("Podaj ilosc obserwacji do wygenerowania!");
+	    }
+	}
+	if (!points.isEmpty())
+	{
 
+	}
     }
 
     @Override

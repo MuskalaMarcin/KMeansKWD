@@ -52,7 +52,7 @@ public class MainPanel extends JPanel
 	rdbtnWczytajZPliku.addActionListener(radioBtnLstnr);
 	rdbtnWygenerujAutomatycznie.addActionListener(radioBtnLstnr);
 	btnWybierzPlik.addActionListener(new OpenFileListener(main, this));
-	btnStart.addActionListener(new StartKmeansListener(main, this));
+	btnStart.addActionListener(new StartBtnListener(main));
     }
 
     public void addLoadData()
@@ -124,7 +124,6 @@ public class MainPanel extends JPanel
 	btnStart = new JButton("Start");
 	btnStart.setBounds(348, 118, 120, 45);
 	add(btnStart);
-	btnStart.setEnabled(false);
 
 	textField_2 = new JTextField();
 	textField_2.setBounds(139, 140, 120, 20);
@@ -158,6 +157,7 @@ public class MainPanel extends JPanel
 	add(progressBar);
 	progressBar.setMaximum(100);
 	progressBar.setMinimum(0);
+	progressBar.setStringPainted(true);
     }
 
     public JTextField getTextField()
