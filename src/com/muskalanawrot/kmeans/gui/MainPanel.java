@@ -27,6 +27,11 @@ public class MainPanel extends JPanel
     private JButton btnWybierzPlik;
     private JButton btnStart;
     private JProgressBar progressBar;
+    private JLabel lblIloKlastrw;
+    private JLabel lblWygenerujDane;
+    private JLabel lblNazwaPliku;
+    private JLabel lblNewLabel_1;
+    private JLabel lblIloPunktw ;
 
     /**
      * Create the panel.
@@ -35,7 +40,7 @@ public class MainPanel extends JPanel
     {
 	this.main = main;
 	this.setBorder(new EmptyBorder(5, 5, 5, 5));
-	this.setBounds(10, 11, 500, 447);
+	this.setBounds(10, 11, 500, 402);
 	this.setLayout(null);
 	this.init();
 	this.setActionListeners();
@@ -43,17 +48,67 @@ public class MainPanel extends JPanel
 
     public void setActionListeners()
     {
-	RadioButtonsListener radioBtnLstnr = new RadioButtonsListener(main, this);
+	RadioButtonsListener radioBtnLstnr = new RadioButtonsListener(this);
 	rdbtnWczytajZPliku.addActionListener(radioBtnLstnr);
 	rdbtnWygenerujAutomatycznie.addActionListener(radioBtnLstnr);
 	btnWybierzPlik.addActionListener(new OpenFileListener(main, this));
 	btnStart.addActionListener(new StartKmeansListener(main, this));
     }
 
+    public void addLoadData()
+    {
+	add(lblNazwaPliku);
+	add(lblNewLabel_1);
+	add(textField);
+	add(btnWybierzPlik);
+	
+	remove(lblWygenerujDane);
+	remove(textField_1);
+	remove(lblIloPunktw);
+	
+	validate();
+	repaint();
+    }
+
+    public void addGenerateData()
+    {
+	add(lblWygenerujDane);
+	add(textField_1);
+	add(lblIloPunktw);
+	
+	remove(lblNazwaPliku);
+	remove(lblNewLabel_1);
+	remove(textField);
+	remove(btnWybierzPlik);
+	
+	validate();
+	repaint();
+    }
+
     public void init()
     {
+	lblNazwaPliku = new JLabel("Nazwa pliku:");
+	lblNazwaPliku.setBounds(36, 71, 83, 14);
+	lblNewLabel_1 = new JLabel("Wczytaj dane:");
+	lblNewLabel_1.setBounds(10, 42, 146, 14);
+	
+	lblIloKlastrw = new JLabel("Ilo\u015B\u0107 klastr\u00F3w");
+	lblIloKlastrw.setBounds(36, 143, 100, 14);
+	add(lblIloKlastrw);
+	lblWygenerujDane = new JLabel("Wygeneruj dane:");
+	lblWygenerujDane.setBounds(10, 42, 146, 14);
+	textField = new JTextField();
+	textField.setBounds(139, 69, 190, 20);
+	btnWybierzPlik = new JButton("Wybierz plik");
+	btnWybierzPlik.setBounds(348, 68, 125, 23);
+	textField.setColumns(10);
+
+	textField_1 = new JTextField();
+	textField_1.setBounds(139, 68, 120, 20);
+	textField_1.setColumns(10);
+
 	textArea = new JTextArea();
-	textArea.setBounds(10, 237, 480, 166);
+	textArea.setBounds(10, 175, 480, 183);
 	add(textArea);
 	textArea.setEditable(false);
 
@@ -64,41 +119,22 @@ public class MainPanel extends JPanel
 	rdbtnWygenerujAutomatycznie = new JRadioButton("Wygeneruj losowo");
 	rdbtnWygenerujAutomatycznie.setBounds(348, 6, 146, 23);
 	add(rdbtnWygenerujAutomatycznie);
-
-	textField = new JTextField();
-	textField.setBounds(139, 69, 190, 20);
-	add(textField);
-	textField.setColumns(10);
-	textField.setEnabled(false);
-
-	btnWybierzPlik = new JButton("Wybierz plik");
-	btnWybierzPlik.setBounds(348, 68, 125, 23);
-	add(btnWybierzPlik);
-	btnWybierzPlik.setEnabled(false);
-
-	textField_1 = new JTextField();
-	textField_1.setBounds(139, 134, 120, 20);
-	add(textField_1);
-	textField_1.setColumns(10);
-	textField_1.setEnabled(false);
+	rdbtnWygenerujAutomatycznie.setSelected(true);
 
 	btnStart = new JButton("Start");
-	btnStart.setBounds(353, 178, 120, 45);
+	btnStart.setBounds(348, 118, 120, 45);
 	add(btnStart);
 	btnStart.setEnabled(false);
 
 	textField_2 = new JTextField();
-	textField_2.setBounds(139, 200, 120, 20);
+	textField_2.setBounds(139, 140, 120, 20);
 	add(textField_2);
 	textField_2.setColumns(10);
-	textField_2.setEnabled(false);
 
 	JLabel lblNewLabel = new JLabel("Dane wej\u015Bciowe:");
 	lblNewLabel.setBounds(10, 3, 135, 28);
 	add(lblNewLabel);
-	JLabel lblNewLabel_1 = new JLabel("Wczytaj dane:");
-	lblNewLabel_1.setBounds(10, 42, 146, 14);
-	add(lblNewLabel_1);
+
 	JSeparator separator = new JSeparator();
 	separator.setBounds(175, 83, 1, 2);
 	add(separator);
@@ -108,27 +144,17 @@ public class MainPanel extends JPanel
 	JSeparator separator_2 = new JSeparator();
 	separator_2.setBounds(0, 105, 500, 2);
 	add(separator_2);
-	JLabel lblWygenerujDane = new JLabel("Wygeneruj dane:");
-	lblWygenerujDane.setBounds(10, 112, 146, 14);
-	add(lblWygenerujDane);
-	JLabel lblIloPunktw = new JLabel("Ilo\u015B\u0107 punkt\u00F3w:");
-	lblIloPunktw.setBounds(36, 137, 109, 14);
-	add(lblIloPunktw);
-	JSeparator separator_3 = new JSeparator();
-	separator_3.setBounds(0, 165, 500, 2);
-	add(separator_3);
-	JLabel lblNewLabel_2 = new JLabel("Algorytm centroid\u00F3w ustawienia:");
-	lblNewLabel_2.setBounds(10, 178, 217, 14);
-	add(lblNewLabel_2);
-	JLabel lblIloKlastrw = new JLabel("Ilo\u015B\u0107 klastr\u00F3w");
-	lblIloKlastrw.setBounds(36, 203, 100, 14);
-	add(lblIloKlastrw);
-	JLabel lblNazwaPliku = new JLabel("Nazwa pliku:");
-	lblNazwaPliku.setBounds(36, 71, 83, 14);
-	add(lblNazwaPliku);
 
+	lblIloPunktw = new JLabel("Ilo\u015B\u0107 punkt\u00F3w:");
+	lblIloPunktw.setBounds(36, 71, 109, 14);
+	add(lblIloPunktw);
+	JLabel lblNewLabel_2 = new JLabel("Algorytm centroid\u00F3w ustawienia:");
+	lblNewLabel_2.setBounds(10, 118, 217, 14);
+	add(lblNewLabel_2);
+
+	addGenerateData();
 	progressBar = new JProgressBar();
-	progressBar.setBounds(175, 414, 146, 22);
+	progressBar.setBounds(175, 369, 146, 22);
 	add(progressBar);
 	progressBar.setMaximum(100);
 	progressBar.setMinimum(0);
