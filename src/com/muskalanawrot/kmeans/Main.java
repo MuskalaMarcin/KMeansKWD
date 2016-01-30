@@ -1,5 +1,7 @@
 package com.muskalanawrot.kmeans;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -13,11 +15,13 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import javax.swing.JFrame;
 
 import com.muskalanawrot.kmeans.gui.MainPanel;
+import com.muskalanawrot.kmeans.implementation.GenerateObservations;
 import com.muskalanawrot.kmeans.implementation.Point;
 
 public class Main implements Runnable
@@ -83,19 +87,28 @@ public class Main implements Runnable
     public void generatePoints(int pointsNumber)
     {
 	this.points = new LinkedList<Point>();
-	long startTime = System.currentTimeMillis();
-	mainPanel.getProgressBar().setMaximum(pointsNumber);
-	for (int i = 0; i < pointsNumber; i++)
+	GenerateObservations task = new GenerateObservations(mainPanel, pointsNumber);
+	mainPanel.getProgressBar().setValue(0);
+	task.addPropertyChangeListener(new PropertyChangeListener()
 	{
-	    points.add(Point.generateRandomPoint(0, 100));
-	    mainPanel.getProgressBar().setValue(i + 1);
-	    mainPanel.validate();
-	    mainPanel.repaint();
+
+	    @Override
+	    public void propertyChange(PropertyChangeEvent evt)
+	    {
+		mainPanel.getProgressBar().setValue(task.getProgress());
+		System.out.println(task.getProgress());
+	    }
+	});
+	task.execute();
+	try
+	{
+	    this.points = task.get();
+
 	}
-	DateFormat formatter = new SimpleDateFormat("mm:ss:SSS");
-	String[] dateFormatted = formatter.format(new Date(System.currentTimeMillis() - startTime)).split(":");
-	write("Wygenerowano: " + pointsNumber + " obserwacji w czasie: " + dateFormatted[0] + " min "
-		+ dateFormatted[1] + " s " + dateFormatted[2] + " ms.");
+	catch (InterruptedException | ExecutionException e)
+	{
+	    e.printStackTrace();
+	}
     }
 
     public void calculateKmeans()
@@ -111,6 +124,7 @@ public class Main implements Runnable
 		write("Podaj ilosc obserwacji do wygenerowania!");
 	    }
 	}
+	System.out.println("Ilosc obserwacji" + points.size());
 	if (!points.isEmpty())
 	{
 
@@ -131,6 +145,16 @@ public class Main implements Runnable
     public void write(String text)
     {
 	mainPanel.getTextArea().append(text + "\n");
+    }
+
+    public List<Point> getPoints()
+    {
+	return points;
+    }
+
+    public void setPoints(List<Point> points)
+    {
+	this.points = points;
     }
 
 }
