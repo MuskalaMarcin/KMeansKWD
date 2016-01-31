@@ -53,6 +53,8 @@ public class OpenFileListener implements ActionListener
 		    }
 		}
 	    });
+	    mainPanel.getBtnPokaWykres().setEnabled(false);
+	    mainPanel.getBtnZapiszWynik().setEnabled(false);
 	    task.execute();
 	}
     }

@@ -52,6 +52,8 @@ public class GenerateObservations extends SwingWorker<List<Observation>, Integer
 		    " min " + dateFormatted[1] + " s " + dateFormatted[2] + " ms.");
 	    mainPanel.getBtnWygeneruj().setEnabled(true);
 	    mainPanel.getBtnStart().setEnabled(true);
+	    mainPanel.getBtnPokaWykres().setEnabled(false);
+	    mainPanel.getBtnZapiszWynik().setEnabled(false);
 	}
     }
 
