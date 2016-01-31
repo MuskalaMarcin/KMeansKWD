@@ -64,7 +64,7 @@ public class MainPanel extends JPanel
 	btnWybierzPlik.addActionListener(new OpenFileListener(main, this));
 	btnStart.addActionListener(new StartBtnListener(main, this));
 	btnWygeneruj.addActionListener(new GenerateListener(main, this));
-	btnPokaWykres.addActionListener(new PlotGraphListener(main, this));
+	btnPokaWykres.addActionListener(new PlotGraphListener(main));
 	btnZapiszWynik.addActionListener(new SaveToFileListener(main, this));
     }
 

@@ -44,7 +44,7 @@ public class SaveToFileListener implements ActionListener
 		List<Observation> observations = main.getObservations();
 		for (int i = 0; i < observations.size(); i++)
 		{
-		    out.write((i + 1) + "\t;\t" + (observations.get(i).getClusterNumber() + 1));
+		    out.write(i + "\t;\t" + observations.get(i).getClusterNumber());
 		    out.newLine();
 		}
 		out.close();
