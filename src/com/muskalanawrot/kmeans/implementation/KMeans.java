@@ -54,7 +54,7 @@ public class KMeans extends SwingWorker<List<Cluster>, Integer>
 		}
 		setProgress(99 - (int) (Math.round((distance / firstDistance) * 98)));
 		iteration++;
-		if (distance == 0)
+		if (distance == 0 )
 		{
 		    return clusters;
 		}

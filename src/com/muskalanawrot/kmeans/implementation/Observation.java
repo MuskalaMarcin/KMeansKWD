@@ -55,6 +55,7 @@ public class Observation
 	{
 	    sum += Math.pow((values1.get(i) - values2.get(i)), 2);
 	}
-	return Math.sqrt(sum);
+	Double sqrt = Math.sqrt(sum);
+	return sqrt.isNaN() ? 0 : sqrt;
     }
 }
