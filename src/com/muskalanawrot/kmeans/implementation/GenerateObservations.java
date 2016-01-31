@@ -10,40 +10,40 @@ import javax.swing.SwingWorker;
 
 import com.muskalanawrot.kmeans.gui.MainPanel;
 
-public class GenerateObservations extends SwingWorker<List<Point>, Integer>
+public class GenerateObservations extends SwingWorker<List<Observation>, Integer>
 {
     MainPanel mainPanel;
-    Integer pointsNumber;
+    Integer observationsNumber;
 
     public GenerateObservations(MainPanel panel, Integer observationsNumber)
     {
 	this.mainPanel = panel;
-	this.pointsNumber = observationsNumber;
+	this.observationsNumber = observationsNumber;
     }
 
     @Override
-    protected List<Point> doInBackground() throws Exception
+    protected List<Observation> doInBackground() throws Exception
     {
 	long startTime = System.currentTimeMillis();
 	mainPanel.getBtnWygeneruj().setEnabled(false);
 	try
 	{
-	    List<Point> points = new LinkedList<Point>();
+	    List<Observation> observations = new LinkedList<Observation>();
 
-	    for (int i = 0; i < pointsNumber; i++)
+	    for (int i = 0; i < observationsNumber; i++)
 	    {
-		points.add(Point.generateRandomPoint(0, 100));
-		setProgress(Math.round((float) i / pointsNumber * 100F));
+		observations.add(Observation.generateRandomObservation(0, 100, 2));
+		setProgress(Math.round((float) i / observationsNumber * 100F));
 	    }
 
-	    return points;
+	    return observations;
 	}
 	finally
 	{
 	    DateFormat formatter = new SimpleDateFormat("mm:ss:SSS");
 	    String[] dateFormatted = formatter.format(new Date(System.currentTimeMillis() - startTime)).split(":");
-	    mainPanel.write("Wygenerowano: " + pointsNumber + " obserwacji w czasie: " + dateFormatted[0] +
-			    " min " + dateFormatted[1] + " s " + dateFormatted[2] + " ms.");
+	    mainPanel.write("Wygenerowano: " + observationsNumber + " obserwacji w czasie: " + dateFormatted[0] +
+		    " min " + dateFormatted[1] + " s " + dateFormatted[2] + " ms.");
 	    mainPanel.getBtnWygeneruj().setEnabled(true);
 	    mainPanel.getBtnStart().setEnabled(true);
 	}

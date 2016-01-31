@@ -53,7 +53,7 @@ public class MainPanel extends JPanel
 	rdbtnWczytajZPliku.addActionListener(radioBtnLstnr);
 	rdbtnWygenerujAutomatycznie.addActionListener(radioBtnLstnr);
 	btnWybierzPlik.addActionListener(new OpenFileListener(main, this));
-	btnStart.addActionListener(new StartBtnListener(main));
+	btnStart.addActionListener(new StartBtnListener(main, this));
 	btnWygeneruj.addActionListener(new GenerateListener(main, this));
     }
 

@@ -40,7 +40,7 @@ public class GenerateListener implements ActionListener
 			mainPanel.getProgressBar().setValue(100);
 			try
 			{
-			    main.setPoints(task.get());
+			    main.setObservations(task.get());
 			}
 			catch (ExecutionException | InterruptedException e)
 			{

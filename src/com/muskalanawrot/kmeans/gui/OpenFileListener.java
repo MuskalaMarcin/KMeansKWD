@@ -44,11 +44,10 @@ public class OpenFileListener implements ActionListener
 			mainPanel.getProgressBar().setValue(100);
 			try
 			{
-			    main.setPoints(task.get());
+			    main.setObservations(task.get());
 			}
 			catch (ExecutionException | InterruptedException e)
 			{
-			    e.printStackTrace();
 			    mainPanel.write("Blad podczas wczytywania punktow, sprobuj ponownie!");
 			}
 		    }

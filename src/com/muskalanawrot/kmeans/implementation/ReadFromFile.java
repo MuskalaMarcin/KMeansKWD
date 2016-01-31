@@ -5,8 +5,10 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -19,7 +21,7 @@ import javax.swing.SwingWorker;
 
 import com.muskalanawrot.kmeans.gui.MainPanel;
 
-public class ReadFromFile extends SwingWorker<List<Point>, File>
+public class ReadFromFile extends SwingWorker<List<Observation>, Integer>
 {
     MainPanel mainPanel;
     File file;
@@ -31,24 +33,33 @@ public class ReadFromFile extends SwingWorker<List<Point>, File>
     }
 
     @Override
-    protected List<Point> doInBackground() throws Exception
+    protected List<Observation> doInBackground() throws Exception
     {
 	long startTime = System.currentTimeMillis();
-	List<Point> points = new LinkedList<Point>();
+	List<Observation> observations = new LinkedList<Observation>();
 	mainPanel.getBtnWybierzPlik().setEnabled(false);
 	mainPanel.getTextArea().append("Wczytuje dane z pliku: " + file.getName() + "\n");
 	try
 	{
+	    setProgress(0);
+	    LineNumberReader lnr = new LineNumberReader(new FileReader(file));
+	    lnr.skip(Long.MAX_VALUE);
+	    int numberOfLines = lnr.getLineNumber();
+	    lnr.close();
+
 	    FileInputStream fInptStr = new FileInputStream(file);
 	    BufferedReader bfrReader = new BufferedReader(new InputStreamReader(new DataInputStream(fInptStr)));
 	    String line;
+	    int lineNumber = 0;
 	    while ((line = bfrReader.readLine()) != null)
 	    {
 		List<Double> dimensions = Arrays.asList(line.split(";")).stream().map(p -> Double.parseDouble(p))
 			.collect(Collectors.toList());
-		points.add(new Point(Double.valueOf(dimensions.get(0)), Double.valueOf(dimensions.get(1))));
+		observations.add(new Observation(dimensions));
+		setProgress(Math.round((float) lineNumber / numberOfLines * 100F));
+		lineNumber++;
 	    }
-	    if (!points.isEmpty())
+	    if (!observations.isEmpty())
 	    {
 		mainPanel.getBtnStart().setEnabled(true);
 	    }
@@ -60,8 +71,9 @@ public class ReadFromFile extends SwingWorker<List<Point>, File>
 
 	    DateFormat formatter = new SimpleDateFormat("mm:ss:SSS");
 	    String[] dateFormatted = formatter.format(new Date(System.currentTimeMillis() - startTime)).split(":");
-	    mainPanel.write("Wczytano: " + points.size() + " obserwacji z pliku w czasie: " + dateFormatted[0] + " min "
-		    + dateFormatted[1] + " s " + dateFormatted[2] + " ms.");
+	    mainPanel.write(
+		    "Wczytano: " + observations.size() + " obserwacji z pliku w czasie: " + dateFormatted[0] + " min "
+			    + dateFormatted[1] + " s " + dateFormatted[2] + " ms.");
 	    mainPanel.getBtnStart().setEnabled(true);
 	}
 	catch (FileNotFoundException e)
@@ -83,7 +95,7 @@ public class ReadFromFile extends SwingWorker<List<Point>, File>
 	{
 	    mainPanel.getBtnWybierzPlik().setEnabled(true);
 	}
-	return points;
+	return observations;
     }
 
 }

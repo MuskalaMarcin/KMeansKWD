@@ -5,13 +5,15 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import com.muskalanawrot.kmeans.gui.MainPanel;
-import com.muskalanawrot.kmeans.implementation.Point;
+import com.muskalanawrot.kmeans.implementation.Cluster;
+import com.muskalanawrot.kmeans.implementation.Observation;
 
 public class Main implements Runnable
 {
     private MainPanel mainPanel;
     private JFrame mainFrame;
-    private List<Point> points;
+    private List<Observation> observations;
+    private List<Cluster> clusters;
 
     public Main()
     {
@@ -22,14 +24,6 @@ public class Main implements Runnable
     public static void main(String args[])
     {
 	new Thread(new Main()).start();
-    }
-
-    public void calculateKmeans()
-    {
-	System.out.println("Ilosc obserwacji " + points.size());
-
-	points.forEach(p -> System.out.println(p.getX() + " " + p.getY()));
-
     }
 
     @Override
@@ -43,14 +37,23 @@ public class Main implements Runnable
 	mainFrame.setVisible(true);
     }
 
-    public List<Point> getPoints()
+    public List<Observation> getObservations()
     {
-	return points;
+	return observations;
     }
 
-    public void setPoints(List<Point> points)
+    public void setObservations(List<Observation> observations)
     {
-	this.points = points;
+	this.observations = observations;
     }
 
+    public List<Cluster> getClusters()
+    {
+	return clusters;
+    }
+
+    public void setClusters(List<Cluster> clusters)
+    {
+	this.clusters = clusters;
+    }
 }
