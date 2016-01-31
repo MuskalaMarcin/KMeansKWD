@@ -25,7 +25,8 @@ public class StartBtnListener implements ActionListener
     {
 	try
 	{
-	    KMeans task = new KMeans(main.getObservations(), Integer.parseInt(mainPanel.getTextField_2().getText()));
+	    KMeans task = new KMeans(main.getObservations(), Integer.parseInt(mainPanel.getTextField_2().getText()),
+		    mainPanel);
 	    task.addPropertyChangeListener(new PropertyChangeListener()
 	    {
 		@Override
