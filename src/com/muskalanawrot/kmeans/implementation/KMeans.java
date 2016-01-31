@@ -64,9 +64,8 @@ public class KMeans extends SwingWorker<List<Cluster>, Integer>
 	{
 	    DateFormat formatter = new SimpleDateFormat("mm:ss:SSS");
 	    String[] dateFormatted = formatter.format(new Date(System.currentTimeMillis() - startTime)).split(":");
-	    mainPanel.write(
-		    "Dojscie do rozwiazania zajelo : " + iteration + " iteracje i czas: " + dateFormatted[0] + " min "
-			    + dateFormatted[1] + " s " + dateFormatted[2] + " ms.");
+	    mainPanel.write("Dojscie do rozwiazania zajelo : " + iteration + " iteracji i trwalo: " + dateFormatted[0]
+		    + " min " + dateFormatted[1] + " s " + dateFormatted[2] + " ms.");
 	}
 
     }

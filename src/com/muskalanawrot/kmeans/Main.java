@@ -30,7 +30,7 @@ public class Main implements Runnable
     public void run()
     {
 	mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	mainFrame.setBounds(100, 100, 505, 430);
+	mainFrame.setBounds(100, 100, 505, 525);
 	mainFrame.setTitle("Algorytm centroidów - Muska³a, Nawrot");
 	mainFrame.setContentPane(mainPanel);
 	mainFrame.setResizable(false);

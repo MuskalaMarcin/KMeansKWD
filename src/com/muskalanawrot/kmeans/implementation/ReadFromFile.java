@@ -88,6 +88,7 @@ public class ReadFromFile extends SwingWorker<List<Observation>, Integer>
 	}
 	catch (NumberFormatException e)
 	{
+	    e.printStackTrace();
 	    mainPanel.getTextField().setText("");
 	    mainPanel.write("Plik nie spe³nia wymaganego formatu.");
 	}

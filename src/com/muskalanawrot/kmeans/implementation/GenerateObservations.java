@@ -14,11 +14,17 @@ public class GenerateObservations extends SwingWorker<List<Observation>, Integer
 {
     MainPanel mainPanel;
     Integer observationsNumber;
+    Integer vectorLength;
+    Integer min;
+    Integer max;
 
-    public GenerateObservations(MainPanel panel, Integer observationsNumber)
+    public GenerateObservations(MainPanel panel, Integer observationsNumber, Integer vectorLength, Integer min, Integer max)
     {
 	this.mainPanel = panel;
 	this.observationsNumber = observationsNumber;
+	this.vectorLength=vectorLength;
+	this.min=min;
+	this.max=max;
     }
 
     @Override
@@ -32,7 +38,7 @@ public class GenerateObservations extends SwingWorker<List<Observation>, Integer
 
 	    for (int i = 0; i < observationsNumber; i++)
 	    {
-		observations.add(Observation.generateRandomObservation(0, 100, 2));
+		observations.add(Observation.generateRandomObservation(min, max, vectorLength));
 		setProgress(Math.round((float) i / observationsNumber * 100F));
 	    }
 
