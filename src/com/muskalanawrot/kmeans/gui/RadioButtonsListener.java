@@ -29,7 +29,9 @@ public class RadioButtonsListener implements ActionListener
 	    {
 		panel.getBtnStart().setEnabled(false);
 		panel.addLoadData();
+		panel.getTextField().setText("");
 		panel.getRdbtnWygenerujAutomatycznie().setSelected(false);
+		panel.getBtnStart().setEnabled(false);
 		loadBtn = true;
 		generateBtn = false;
 	    }
@@ -45,6 +47,7 @@ public class RadioButtonsListener implements ActionListener
 		panel.getBtnStart().setEnabled(true);
 		panel.addGenerateData();
 		panel.getRdbtnWczytajZPliku().setSelected(false);
+		panel.getBtnStart().setEnabled(false);
 		loadBtn = false;
 		generateBtn = true;
 	    }

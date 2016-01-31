@@ -24,19 +24,29 @@ public class GenerateObservations extends SwingWorker<List<Point>, Integer>
     @Override
     protected List<Point> doInBackground() throws Exception
     {
-	List<Point> points = new LinkedList<Point>();
 	long startTime = System.currentTimeMillis();
-
-	for (int i = 0; i < pointsNumber; i++)
+	mainPanel.getBtnWygeneruj().setEnabled(false);
+	try
 	{
-	    points.add(Point.generateRandomPoint(0, 100));
-	    setProgress(Math.round((float) i / pointsNumber * 100F));
+	    List<Point> points = new LinkedList<Point>();
+
+	    for (int i = 0; i < pointsNumber; i++)
+	    {
+		points.add(Point.generateRandomPoint(0, 100));
+		setProgress(Math.round((float) i / pointsNumber * 100F));
+	    }
+
+	    return points;
 	}
-	DateFormat formatter = new SimpleDateFormat("mm:ss:SSS");
-	String[] dateFormatted = formatter.format(new Date(System.currentTimeMillis() - startTime)).split(":");
-	mainPanel.getTextArea().append("Wygenerowano: " + pointsNumber + " obserwacji w czasie: " + dateFormatted[0] +
-		" min " + dateFormatted[1] + " s " + dateFormatted[2] + " ms.\n");
-	return points;
+	finally
+	{
+	    DateFormat formatter = new SimpleDateFormat("mm:ss:SSS");
+	    String[] dateFormatted = formatter.format(new Date(System.currentTimeMillis() - startTime)).split(":");
+	    mainPanel.write("Wygenerowano: " + pointsNumber + " obserwacji w czasie: " + dateFormatted[0] +
+			    " min " + dateFormatted[1] + " s " + dateFormatted[2] + " ms.");
+	    mainPanel.getBtnWygeneruj().setEnabled(true);
+	    mainPanel.getBtnStart().setEnabled(true);
+	}
     }
 
 }

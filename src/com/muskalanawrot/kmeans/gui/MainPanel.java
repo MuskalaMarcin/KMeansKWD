@@ -31,7 +31,8 @@ public class MainPanel extends JPanel
     private JLabel lblWygenerujDane;
     private JLabel lblNazwaPliku;
     private JLabel lblNewLabel_1;
-    private JLabel lblIloPunktw ;
+    private JLabel lblIloPunktw;
+    private JButton btnWygeneruj;
 
     /**
      * Create the panel.
@@ -53,6 +54,7 @@ public class MainPanel extends JPanel
 	rdbtnWygenerujAutomatycznie.addActionListener(radioBtnLstnr);
 	btnWybierzPlik.addActionListener(new OpenFileListener(main, this));
 	btnStart.addActionListener(new StartBtnListener(main));
+	btnWygeneruj.addActionListener(new GenerateListener(main, this));
     }
 
     public void addLoadData()
@@ -61,11 +63,12 @@ public class MainPanel extends JPanel
 	add(lblNewLabel_1);
 	add(textField);
 	add(btnWybierzPlik);
-	
+
+	remove(btnWygeneruj);
 	remove(lblWygenerujDane);
 	remove(textField_1);
 	remove(lblIloPunktw);
-	
+
 	validate();
 	repaint();
     }
@@ -75,12 +78,13 @@ public class MainPanel extends JPanel
 	add(lblWygenerujDane);
 	add(textField_1);
 	add(lblIloPunktw);
-	
+	add(btnWygeneruj);
+
 	remove(lblNazwaPliku);
 	remove(lblNewLabel_1);
 	remove(textField);
 	remove(btnWybierzPlik);
-	
+
 	validate();
 	repaint();
     }
@@ -91,7 +95,10 @@ public class MainPanel extends JPanel
 	lblNazwaPliku.setBounds(36, 71, 83, 14);
 	lblNewLabel_1 = new JLabel("Wczytaj dane:");
 	lblNewLabel_1.setBounds(10, 42, 146, 14);
-	
+
+	btnWygeneruj = new JButton("Wygeneruj");
+	btnWygeneruj.setBounds(348, 67, 120, 23);
+	add(btnWygeneruj);
 	lblIloKlastrw = new JLabel("Ilo\u015B\u0107 klastr\u00F3w");
 	lblIloKlastrw.setBounds(36, 143, 100, 14);
 	add(lblIloKlastrw);
@@ -100,7 +107,7 @@ public class MainPanel extends JPanel
 	textField = new JTextField();
 	textField.setBounds(139, 69, 190, 20);
 	btnWybierzPlik = new JButton("Wybierz plik");
-	btnWybierzPlik.setBounds(348, 68, 125, 23);
+	btnWybierzPlik.setBounds(348, 67, 120, 23);
 	textField.setColumns(10);
 
 	textField_1 = new JTextField();
@@ -124,6 +131,7 @@ public class MainPanel extends JPanel
 	btnStart = new JButton("Start");
 	btnStart.setBounds(348, 118, 120, 45);
 	add(btnStart);
+	btnStart.setEnabled(false);
 
 	textField_2 = new JTextField();
 	textField_2.setBounds(139, 140, 120, 20);
@@ -158,6 +166,7 @@ public class MainPanel extends JPanel
 	progressBar.setMaximum(100);
 	progressBar.setMinimum(0);
 	progressBar.setStringPainted(true);
+
     }
 
     public JTextField getTextField()
@@ -205,4 +214,13 @@ public class MainPanel extends JPanel
 	return progressBar;
     }
 
+    public JButton getBtnWygeneruj()
+    {
+	return btnWygeneruj;
+    }
+
+    public void write(String text)
+    {
+	getTextArea().append(text + "\n");
+    }
 }
