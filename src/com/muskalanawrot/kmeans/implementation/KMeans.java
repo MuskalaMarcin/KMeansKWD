@@ -12,6 +12,10 @@ import javax.swing.SwingWorker;
 
 import com.muskalanawrot.kmeans.gui.MainPanel;
 
+/**
+ * Main class performing kmeans calculation.
+ *
+ */
 public class KMeans extends SwingWorker<List<Cluster>, Integer>
 {
     private List<Observation> observations;
@@ -27,6 +31,11 @@ public class KMeans extends SwingWorker<List<Cluster>, Integer>
 	this.mainPanel = mainPanel;
     }
 
+    /**
+     * Main KMeans method. Firstly generates random clusters, then in each iteration clears
+     * observations from clusters, assigns observations to new clusters and calculates new
+     * centroids. Computing ends when new centroids are the same as in previous iteration.
+     */
     @Override
     protected List<Cluster> doInBackground() throws Exception
     {
@@ -54,7 +63,7 @@ public class KMeans extends SwingWorker<List<Cluster>, Integer>
 		}
 		setProgress(99 - (int) (Math.round((distance / firstDistance) * 98)));
 		iteration++;
-		if (distance == 0 )
+		if (distance == 0)
 		{
 		    return clusters;
 		}
@@ -70,6 +79,10 @@ public class KMeans extends SwingWorker<List<Cluster>, Integer>
 
     }
 
+    /**
+     * Method used in algorithm initialization generating expected number of clusters with random
+     * centroids.
+     */
     private void generateClusters()
     {
 	Random random = new Random();
@@ -83,11 +96,19 @@ public class KMeans extends SwingWorker<List<Cluster>, Integer>
 	}
     }
 
+    /**
+     * Method clearning observations list in all clusters.
+     */
     private void clearClusters()
     {
 	clusters.forEach(c -> c.clear());
     }
 
+    /**
+     * Method getting centroids from all clusters.
+     * 
+     * @return List of Observations used as centroids.
+     */
     private List<Observation> getCentroids()
     {
 	List<Observation> allClusters = new LinkedList<Observation>();
@@ -97,6 +118,9 @@ public class KMeans extends SwingWorker<List<Cluster>, Integer>
 	return allClusters;
     }
 
+    /**
+     * Method assigning observations to cluster with closest centroid.
+     */
     private void assignAllObservationsToClusters()
     {
 	observations.forEach(o -> {
@@ -116,6 +140,10 @@ public class KMeans extends SwingWorker<List<Cluster>, Integer>
 	});
     }
 
+    /**
+     * Method calculating new centroids for clusters based on average value from observations
+     * already assigned to cluster.
+     */
     private void calculateNewCentroids()
     {
 	clusters.forEach(c -> {

@@ -13,6 +13,10 @@ import javax.swing.JFileChooser;
 import com.muskalanawrot.kmeans.Main;
 import com.muskalanawrot.kmeans.implementation.Observation;
 
+/**
+ * Save button listener performing saving kmeans results to file.
+ *
+ */
 public class SaveToFileListener implements ActionListener
 {
     private MainPanel mainPanel;
@@ -26,6 +30,9 @@ public class SaveToFileListener implements ActionListener
 	jFileChooser = new JFileChooser();
     }
 
+    /**
+     * Method performing saving kmeans results to txt file.
+     */
     @Override
     public void actionPerformed(ActionEvent e)
     {

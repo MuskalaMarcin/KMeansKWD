@@ -8,6 +8,10 @@ import org.jfree.ui.RefineryUtilities;
 
 import com.muskalanawrot.kmeans.Main;
 
+/**
+ * PlotGraphListener class after clicking plot graph button opens new frame with generated graph.
+ *
+ */
 public class PlotGraphListener implements ActionListener
 {
     private Main main;

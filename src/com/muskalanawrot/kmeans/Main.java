@@ -8,6 +8,10 @@ import com.muskalanawrot.kmeans.gui.MainPanel;
 import com.muskalanawrot.kmeans.implementation.Cluster;
 import com.muskalanawrot.kmeans.implementation.Observation;
 
+/**
+ * Main program class starting main window thread.
+ *
+ */
 public class Main implements Runnable
 {
     private MainPanel mainPanel;
@@ -21,6 +25,10 @@ public class Main implements Runnable
 	this.mainFrame = new JFrame();
     }
 
+    /**
+     * Main method starting main thread.
+     * @param args
+     */
     public static void main(String args[])
     {
 	new Thread(new Main()).start();

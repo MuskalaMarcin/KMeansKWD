@@ -3,12 +3,21 @@ package com.muskalanawrot.kmeans.implementation;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Class representing cluster.
+ *
+ */
 public class Cluster
 {
     private Integer id;
     private Observation centroid;
     private List<Observation> observations;
 
+    /**
+     * Cluster class constructor assigning id and initializing centroid value and observations list.
+     * 
+     * @param id number of cluster
+     */
     public Cluster(Integer id)
     {
 	this.id = id;

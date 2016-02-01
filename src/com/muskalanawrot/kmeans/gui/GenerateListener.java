@@ -9,6 +9,10 @@ import java.util.concurrent.ExecutionException;
 import com.muskalanawrot.kmeans.Main;
 import com.muskalanawrot.kmeans.implementation.GenerateObservations;
 
+/**
+ * Listener to generate observations button.
+ *
+ */
 public class GenerateListener implements ActionListener
 {
     Main main;

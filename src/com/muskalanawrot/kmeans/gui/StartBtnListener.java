@@ -9,17 +9,30 @@ import java.util.concurrent.ExecutionException;
 import com.muskalanawrot.kmeans.Main;
 import com.muskalanawrot.kmeans.implementation.KMeans;
 
+/**
+ * Listener for start button.
+ */
 public class StartBtnListener implements ActionListener
 {
     private Main main;
     private MainPanel mainPanel;
 
+    /**
+     * Constructor for start button listener.
+     * 
+     * @param main reference to main class
+     * @param mainPanel reference
+     */
     public StartBtnListener(Main main, MainPanel mainPanel)
     {
 	this.main = main;
 	this.mainPanel = mainPanel;
     }
 
+    /**
+     * Main method performing kmeans computation in new thread from KMeans class and returning
+     * calculated clusters.
+     */
     @Override
     public void actionPerformed(ActionEvent e)
     {

@@ -10,6 +10,10 @@ import javax.swing.SwingWorker;
 
 import com.muskalanawrot.kmeans.gui.MainPanel;
 
+/**
+ * Class generating random list of observations.
+ *
+ */
 public class GenerateObservations extends SwingWorker<List<Observation>, Integer>
 {
     MainPanel mainPanel;
@@ -18,6 +22,14 @@ public class GenerateObservations extends SwingWorker<List<Observation>, Integer
     Integer min;
     Integer max;
 
+    /**
+     * Constructor for GenerateObservations class.
+     * @param panel mainPanel reference
+     * @param observationsNumber number of observations to generate
+     * @param vectorLength length of vector
+     * @param min value
+     * @param max value
+     */
     public GenerateObservations(MainPanel panel, Integer observationsNumber, Integer vectorLength, Integer min, Integer max)
     {
 	this.mainPanel = panel;
@@ -27,6 +39,9 @@ public class GenerateObservations extends SwingWorker<List<Observation>, Integer
 	this.max=max;
     }
 
+    /**
+     * Main thread method generating given number of observations.
+     */
     @Override
     protected List<Observation> doInBackground() throws Exception
     {

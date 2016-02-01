@@ -3,6 +3,11 @@ package com.muskalanawrot.kmeans.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Listener class for radio buttons helping to choose between reading observations from txt file and
+ * randomly generating it.
+ *
+ */
 public class RadioButtonsListener implements ActionListener
 {
     private MainPanel panel;

@@ -14,12 +14,21 @@ import com.muskalanawrot.kmeans.Main;
 import com.muskalanawrot.kmeans.implementation.Cluster;
 import com.muskalanawrot.kmeans.implementation.Observation;
 
+/**
+ * Class generating frame with graph.
+ *
+ */
 public class GraphFrame extends JFrame
 {
     private static final long serialVersionUID = 1L;
 
     private Main main;
 
+    /**
+     * Constructor generating graph.
+     * 
+     * @param main reference to Main class
+     */
     public GraphFrame(Main main)
     {
 	super("Algorytm centroidow - wykres");
@@ -37,6 +46,11 @@ public class GraphFrame extends JFrame
 	setContentPane(chartPanel);
     }
 
+    /**
+     * Method creating datasets to be rendered on graph.
+     * 
+     * @return XYDataset dataset.
+     */
     private XYDataset createDataset()
     {
 	final XYSeriesCollection dataset = new XYSeriesCollection();

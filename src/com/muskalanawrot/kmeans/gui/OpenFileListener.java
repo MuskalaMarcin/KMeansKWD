@@ -12,6 +12,11 @@ import javax.swing.JFileChooser;
 import com.muskalanawrot.kmeans.Main;
 import com.muskalanawrot.kmeans.implementation.ReadFromFile;
 
+/**
+ * OpenFileListener performs action assigned to open file button which means starting new thread
+ * reading observations from txt file.
+ *
+ */
 public class OpenFileListener implements ActionListener
 {
     private MainPanel mainPanel;

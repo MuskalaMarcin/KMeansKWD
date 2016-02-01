@@ -21,17 +21,29 @@ import javax.swing.SwingWorker;
 
 import com.muskalanawrot.kmeans.gui.MainPanel;
 
+/**
+ * Class extending SwingWorker used for reading new observations from txt file.
+ *
+ */
 public class ReadFromFile extends SwingWorker<List<Observation>, Integer>
 {
     MainPanel mainPanel;
     File file;
 
+    /**
+     * ReadFromFile class constructor.
+     * @param mainPanel reference
+     * @param file reference to file with observations
+     */
     public ReadFromFile(MainPanel mainPanel, File file)
     {
 	this.mainPanel = mainPanel;
 	this.file = file;
     }
 
+    /**
+     * Main thread method performing reading observations from txt file.
+     */
     @Override
     protected List<Observation> doInBackground() throws Exception
     {
