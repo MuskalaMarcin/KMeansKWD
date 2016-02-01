@@ -2,16 +2,13 @@ package com.muskalanawrot.kmeans.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.JFileChooser;
 
 import com.muskalanawrot.kmeans.Main;
-import com.muskalanawrot.kmeans.implementation.Observation;
+import com.muskalanawrot.kmeans.implementation.SaveToFile;
 
 /**
  * Save button listener performing saving kmeans results to file.
@@ -31,36 +28,39 @@ public class SaveToFileListener implements ActionListener
     }
 
     /**
-     * Method performing saving kmeans results to txt file.
+     * Method starting thread saving to file.
      */
     @Override
     public void actionPerformed(ActionEvent e)
     {
 	if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION)
 	{
-	    File file = jFileChooser.getSelectedFile();
-	    if (!file.getName().endsWith(".txt"))
+	    mainPanel.getBtnPokaWykres().setEnabled(false);
+	    mainPanel.getBtnStart().setEnabled(false);
+	    mainPanel.getBtnWybierzPlik().setEnabled(false);
+	    mainPanel.getBtnWygeneruj().setEnabled(false);
+	    mainPanel.getBtnZapiszWynik().setEnabled(false);
+
+	    SaveToFile task = new SaveToFile(main, mainPanel, jFileChooser.getSelectedFile());
+	    task.addPropertyChangeListener(new PropertyChangeListener()
 	    {
-		file = new File(file.toString() + ".txt");
-	    }
-	    try
-	    {
-		BufferedWriter out = new BufferedWriter(new FileWriter(file, false));
-		out.write("ObsNr\t;\tClusterNr");
-		out.newLine();
-		List<Observation> observations = main.getObservations();
-		for (int i = 0; i < observations.size(); i++)
+		@Override
+		public void propertyChange(PropertyChangeEvent evt)
 		{
-		    out.write(i + "\t;\t" + observations.get(i).getClusterNumber());
-		    out.newLine();
+		    mainPanel.getProgressBar().setValue(task.getProgress());
+		    if (task.isDone())
+		    {
+			mainPanel.getProgressBar().setValue(100);
+
+			mainPanel.getBtnPokaWykres().setEnabled(true);
+			mainPanel.getBtnStart().setEnabled(true);
+			mainPanel.getBtnWybierzPlik().setEnabled(true);
+			mainPanel.getBtnWygeneruj().setEnabled(true);
+			mainPanel.getBtnZapiszWynik().setEnabled(true);
+		    }
 		}
-		out.close();
-		mainPanel.write("Zapisano wyniki do pliku: " + file.getAbsolutePath());
-	    }
-	    catch (IOException e1)
-	    {
-		mainPanel.write("Podczas zapisu do pliku wystapil blad.");
-	    }
+	    });
+	    task.execute();
 	}
     }
 

@@ -69,17 +69,17 @@ public class StartBtnListener implements ActionListener
 			    {
 				mainPanel.getBtnPokaWykres().setEnabled(false);
 			    }
-			    mainPanel.getBtnZapiszWynik().setEnabled(true);
-			    mainPanel.getBtnStart().setEnabled(true);
-			    mainPanel.getBtnWybierzPlik().setEnabled(true);
-			    mainPanel.getBtnWygeneruj().setEnabled(true);
-			    mainPanel.getRdbtnWczytajZPliku().setEnabled(true);
-			    mainPanel.getRdbtnWygenerujAutomatycznie().setEnabled(true);
 			}
 			catch (ExecutionException | InterruptedException e)
 			{
 			    mainPanel.write("Blad podczas pracy algorytmu KMeans, sprobuj ponownie!");
 			}
+			mainPanel.getBtnZapiszWynik().setEnabled(true);
+			mainPanel.getBtnStart().setEnabled(true);
+			mainPanel.getBtnWybierzPlik().setEnabled(true);
+			mainPanel.getBtnWygeneruj().setEnabled(true);
+			mainPanel.getRdbtnWczytajZPliku().setEnabled(true);
+			mainPanel.getRdbtnWygenerujAutomatycznie().setEnabled(true);
 		    }
 		}
 	    });
